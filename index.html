@@ -13,15 +13,24 @@
 
     </div>
     </div>
+    <div id="player1Name"></div>
+    <div id="player2Name"></div>
     <button class="open-button" onclick="openForm()">New Game</button>
     <div class="form-popup" id="myForm">
         <form action="/action_page.php" class="form-container">
-            <label for="name">Name:</label>
+            <label for="name">Player 1 Name:</label>
             <input type="text" id="name" name="name"><br><br>
             <label for="symbol">Symbol:</label>
-            <select id="symbol" name="symbol"><br><br>
+            <select id="symbol" name="symbol">
                 <option value="X">X</option>
                 <option value="O">O</option>
+            </select><br><br>
+            <label for="name2">Player 2 Name:</label>
+            <input type="text" id="name2" name="name2"><br><br>
+            <p>No player 2? Play the computer!</p>
+            <input type="checkbox" id="compOpponent" name="compOpponent" value="Computer">
+            <label for="compOpponent">Computers Rule</label><br>
+
             <input id="btnsubmit" type="button" value="SUBMIT" onclick="closeForm()">
         </form>
     </div>

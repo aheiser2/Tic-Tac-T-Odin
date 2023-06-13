@@ -2,64 +2,100 @@ function myFunction() {
   document.getElementById("demo").innerHTML = "YOU CLICKED ME!";
 }
 
+const markSymbol = (index) => {
+    if(document.getElementById(index).innerHTML.indexOf("X") !== -1 || document.getElementById(index).id == 1) {
+        document.getElementById(index).innerHTML = "King"
+    } else {
+        document.getElementById(index).innerHTML= "NO"
+    }
+}
+
+
+
 //Game Board
 const gameBoard = (() => {
     const board = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-    const i = board.indexOf();
+
     const createBoard = board => { 
         return board.map((space, index) => `  
-        <div class="space" id="${index+1}">
-        ${index+1}
-        x
-        </div>`)
+        <button class="space" id="${index}" onclick="markSymbol(${index})">
+        O
+        </button>`)
         .join('');
     }
-    const showBoard = (board) => {
+
+    const showBoard = board => {
         document.getElementById("gameBoard").innerHTML = createBoard(board)
     }
+
     return {
       board,
-      showBoard
+      showBoard,
+    //   markSymbol
     };
   })();
 
   let board = gameBoard.board
   gameBoard.showBoard(board)
 
-
 function openForm() {
     document.getElementById("myForm").style.display = "block";
 }
 
 function closeForm() {
-    // addBookToLibrary()
-    startGame()
+    displayController.createPlayers()
     document.getElementById("myForm").style.display = "none";
 }
 
-  function startGame() {
-    let playerName = document.getElementById("name").value
-    let symbol = document.getElementById("symbol").value
-    const player1 = Player(playerName, symbol)
-  console.log(player1)
-//   document.getElementById("title").value = ""
-//   document.getElementById("author").value = ""
-//   document.getElementById("pages").value = ""
-//   document.getElementById("readStatus").value = "read"
-//   document.getElementById("myLibrary").innerHTML = showLibrary(myLibrary)
-}
+//   function createPlayers() {
+//     let playerName = document.getElementById("name").value
+//     let symbol = document.getElementById("symbol").value
+//     const player1 = Player(playerName, symbol)
+//     document.getElementById("player1Name").innerHTML = playerName
+//   console.log(player1)
+//     let playerName2 = document.getElementById("name2").value
+//     if(player1.getSymbol == "X"){
+//         symbol = "O"
+//         } else {
+//             symbol = "X"
+//         }
+//         if (document.getElementById("compOpponent").checked == true ){
+//             playerName2 = "Computer"
+//         }
+//     const player2 = Player(playerName2, symbol)
+//     document.getElementById("player2Name").innerHTML = playerName2
+//     console.log(player2)
+// }
 
 
 //Display Controller
   const displayController = (() => {
-    const createPlayer = "";
+    const createPlayers = () =>{
+        let playerName = document.getElementById("name").value
+        let symbol = document.getElementById("symbol").value
+        const player1 = Player(playerName, symbol)
+        document.getElementById("player1Name").innerHTML = playerName
+      console.log(player1)
+        let playerName2 = document.getElementById("name2").value
+        if(player1.getSymbol == "X"){
+            symbol = "O"
+            } else {
+                symbol = "X"
+            }
+            if (document.getElementById("compOpponent").checked == true ){
+                playerName2 = "Computer"
+            }
+        const player2 = Player(playerName2, symbol)
+        document.getElementById("player2Name").innerHTML = playerName2
+        console.log(player2)
+    };
     const changePlayer = "";
     const checkGameOver = "";
     const displayWinner = "";
     const restart = "";
 
     return {
-        createPlayer,
+        createPlayers,
       changePlayer,
       checkGameOver,
       displayWinner,
@@ -70,25 +106,6 @@ function closeForm() {
   const Player = (name, symbol) => {
     const getName  = name;
     const getSymbol = symbol;
-    // const die = () => {
-    //   // uh oh
-    // };
-    // const damage = x => {
-    //   health -= x;
-    //   if (health <= 0) {
-    //     die();
-    //   }
-    // };
-    // const attack = enemy => {
-    //   if (level < enemy.getLevel()) {
-    //     damage(1);
-    //     console.log(`${enemy.getName()} has damaged ${name}`);
-    //   }
-    //   if (level >= enemy.getLevel()) {
-    //     enemy.damage(1);
-    //     console.log(`${name} has damaged ${enemy.getName()}`);
-    //   }
-    // };
     return {getSymbol, getName};
   };
 

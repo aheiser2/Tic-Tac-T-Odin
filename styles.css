@@ -2,6 +2,14 @@ button {
     background-color: aqua;
 }
 
+.X {
+    background-color: blue;
+}
+
+.O {
+    background-color: greenyellow;
+}
+
 .gameContainer{
     height: 100%; 
     display: flex; 
