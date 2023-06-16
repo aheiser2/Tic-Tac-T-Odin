@@ -24,8 +24,9 @@ const GameBoard = (() =>{
 
     const createPlayers = () =>{
         player1 = Player(document.getElementById("name").value, 
-                    document.getElementById("symbol").value)
-        document.getElementById("player1Name").innerHTML = document.getElementById("name").value
+        document.getElementById("symbol").value)
+        document.getElementById("player1Name").innerHTML += document.getElementById("name").value
+        
         let tempSymbol;
         if(player1.getSymbol == "X"){
             tempSymbol = "O"
@@ -39,7 +40,37 @@ const GameBoard = (() =>{
         document.getElementById("player2Name").innerHTML += document.getElementById("name2").value
         console.log(player1)
         console.log(player2)
+        document.getElementById("name").value = ""
+        document.getElementById("symbol").value = ""
+        document.getElementById("name2").value = ""
+        Game.gameNumber++
+        console.log(Game.gameNumber)
     };
+
+    // const createPlayers2 = () =>{
+    //     player1 = Player(document.getElementById("name").value, 
+    //     document.getElementById("symbol").value)
+    //     document.getElementById("player1Name").innerHTML += document.getElementById("name").value
+        
+    //     let tempSymbol;
+    //     if(player1.getSymbol == "X"){
+    //         tempSymbol = "O"
+    //         } else {
+    //             tempSymbol = "X"
+    //         }
+    //         if (document.getElementById("compOpponent").checked == true ){
+    //             document.getElementById("name2").value = "Computer"
+    //         }
+    //     player2 = Player(document.getElementById("name2").value, tempSymbol)
+    //     document.getElementById("player2Name").innerHTML += document.getElementById("name2").value
+    //     console.log(player1)
+    //     console.log(player2)
+    //     document.getElementById("name").value = ""
+    //     document.getElementById("symbol").value = ""
+    //     document.getElementById("name2").value = ""
+    //     Game.gameNumber++
+    //     console.log(Game.gameNumber)
+    // };
 
     const showBoard = board => {
         document.getElementById("gameBoard").innerHTML = createBoard(board)
@@ -51,9 +82,11 @@ const GameBoard = (() =>{
             document.getElementById([i]).addEventListener("click", function() {
                 if(turn === "player1" && document.getElementById([i]).innerHTML.trim() === ""){
                     document.getElementById([i]).innerHTML = player1.getSymbol
+                    document.getElementById([i]).classList.add(`${player1.getSymbol}`)
                     GameBoard.board[i] = player1.getSymbol
                 } else if (turn === "player2" && document.getElementById([i]).innerHTML.trim() === ""){
                     document.getElementById([i]).innerHTML = player2.getSymbol
+                    document.getElementById([i]).classList.add(`${player2.getSymbol}`)
                     GameBoard.board[i] = player2.getSymbol
                 }
                 winCheck()
@@ -68,9 +101,13 @@ const GameBoard = (() =>{
         if(turn == "player1"){
             turn = "player2"
             console.log("Player 2 turn")
+            document.getElementById("player1Name").classList.remove("activeBorder")
+            document.getElementById("player2Name").classList.add("activeBorder")
         } else {
             turn = "player1"
             console.log("Player 1 turn")
+            document.getElementById("player2Name").classList.remove("activeBorder")
+            document.getElementById("player1Name").classList.add("activeBorder")
         }
     };
 
@@ -83,25 +120,44 @@ const GameBoard = (() =>{
         || (x[3] == x[4] && x[4] == x[5]) || (x[1] == x[4] && x[4] == x[7]) 
         || (x[6] == x[7] && x[7] == x[8]) || (x[2] == x[5] && x[5] == x[8])
         || (x[0] == x[4] && x[4] == x[8]) || (x[2] == x[4] && x[4] == x[6])){
+            for(let i = 0; i<=8; i++){
+                document.getElementById([i]).setAttribute("disabled", '')
+            }
             if(turn == "player1"){
                 document.getElementById("winNotification").innerHTML = `${player1.getSymbol} won!`
             } else {
                 document.getElementById("winNotification").innerHTML = `${player2.getSymbol} won!`
             }  
         } else if (x.every(ele => typeof ele !== "number")){
+            for(let i = 0; i<=8; i++){
+                document.getElementById([i]).setAttribute("disabled", '')
+            }
             document.getElementById("winNotification").innerHTML = `It's a tie!`
         }
     }
 
-    return {board, createBoard, showBoard, createPlayers}
+    const resetGame = () => {
+        board.length = 0;
+        for(let i = 0; i<=8; i++){
+            board[i] = i
+        }
+        console.log(board)
+        GameBoard.showBoard(board)
+        document.getElementById("winNotification").innerHTML = ""
+    }
+
+    return {board, createBoard, showBoard, createPlayers, resetGame}
 })();
 
 let board = GameBoard.board
 GameBoard.showBoard(board)
 
 function openForm() {
-    document.getElementById("myForm").style.display = "block";
-
+    if (Game.gameNumber == 0){
+        document.getElementById("myForm").style.display = "block";
+    } else {
+        document.getElementById("myForm2").style.display = "block";
+    }
 }
 
 function closeForm() {
@@ -109,7 +165,25 @@ function closeForm() {
     document.getElementById("myForm").style.display = "none";
 }
 
+function closeForm2() {
+    if(document.getElementById("newNames").value == "Yes"){
+        GameBoard.resetGame()
+        document.getElementById("myForm2").style.display = "none";
+    } else {
+        GameBoard.resetGame()
+        Game.gameNumber = 0
+        document.getElementById("player1Name").innerHTML = "Player 1: "
+        document.getElementById("player2Name").innerHTML = "Player 2: "
+        document.getElementById("myForm2").style.display = "none";
+        openForm()
+        console.log(Game.gameNumber)
+    }
+    
+    // document.getElementById("myForm2").style.display = "none";
+}
+
 const Game = (() =>{
+    let gameNumber = 0
 
-
+    return {gameNumber}
 })();

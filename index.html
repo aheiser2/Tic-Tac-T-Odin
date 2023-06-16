@@ -8,15 +8,23 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="gameContainer">
-    <div id="gameBoard">
-
-    </div>
-    </div>
-    <div id="winNotification"></div>
-    <div id="player1Name">Player 1: </div>
-    <div id="player2Name">Player 2: </div>
-    <button class="open-button" onclick="openForm()">New Game</button>
+    <header>
+        <h1>Tic-Tac-T-Odin</h1>
+        <h6>A game for The Odin Project</h6>
+    </header>
+    <main>
+        <div class="gameContainer">
+            <div id="gameBoard"></div>
+        </div>
+    </main>
+    <footer>
+        <h3 id="winNotification"></h3>
+        <div id="player1Name">Player 1: </div>
+        <div id="player2Name">Player 2: </div>
+        <button class="open-button" onclick="openForm()">New Game</button>
+    </footer>
+        
+    <!--Form 1-->
     <div class="form-popup" id="myForm">
         <form action="/action_page.php" class="form-container">
             <label for="name">Player 1 Name:</label>
@@ -35,7 +43,18 @@
             <input id="btnsubmit" type="button" value="SUBMIT" onclick="closeForm()">
         </form>
     </div>
-    <p id="demo" onclick="myFunction()">Click me.</p>
+
+    <!--Form 2-->
+    <div class="form-popup" id="myForm2">
+        <form action="/action_page.php" class="form-container">
+            <label for="newNames">Keep same names?</label>
+            <select id="newNames" name="newNames">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select><br><br>
+            <input id="btnsubmit" type="button" value="SUBMIT" onclick="closeForm2()">
+        </form>
+    </div>
     <script src="index2.js"></script>
 </body>
 </html>
