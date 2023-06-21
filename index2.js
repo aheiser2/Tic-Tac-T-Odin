@@ -25,8 +25,8 @@ const GameBoard = (() =>{
     const createPlayers = () =>{
         player1 = Player(document.getElementById("name").value, 
         document.getElementById("symbol").value)
-        document.getElementById("player1Name").innerHTML += document.getElementById("name").value
-        
+        document.getElementById("player1Name").innerHTML = "Player 1: " +  document.getElementById("name").value
+        document.getElementById("player1Name").classList.add("activeBorder")
         let tempSymbol;
         if(player1.getSymbol == "X"){
             tempSymbol = "O"
@@ -37,40 +37,15 @@ const GameBoard = (() =>{
                 document.getElementById("name2").value = "Computer"
             }
         player2 = Player(document.getElementById("name2").value, tempSymbol)
-        document.getElementById("player2Name").innerHTML += document.getElementById("name2").value
+        document.getElementById("player2Name").innerHTML = "Player 2: " + document.getElementById("name2").value
         console.log(player1)
         console.log(player2)
         document.getElementById("name").value = ""
-        document.getElementById("symbol").value = ""
+        document.getElementById("symbol").value = "X"
         document.getElementById("name2").value = ""
         Game.gameNumber++
         console.log(Game.gameNumber)
     };
-
-    // const createPlayers2 = () =>{
-    //     player1 = Player(document.getElementById("name").value, 
-    //     document.getElementById("symbol").value)
-    //     document.getElementById("player1Name").innerHTML += document.getElementById("name").value
-        
-    //     let tempSymbol;
-    //     if(player1.getSymbol == "X"){
-    //         tempSymbol = "O"
-    //         } else {
-    //             tempSymbol = "X"
-    //         }
-    //         if (document.getElementById("compOpponent").checked == true ){
-    //             document.getElementById("name2").value = "Computer"
-    //         }
-    //     player2 = Player(document.getElementById("name2").value, tempSymbol)
-    //     document.getElementById("player2Name").innerHTML += document.getElementById("name2").value
-    //     console.log(player1)
-    //     console.log(player2)
-    //     document.getElementById("name").value = ""
-    //     document.getElementById("symbol").value = ""
-    //     document.getElementById("name2").value = ""
-    //     Game.gameNumber++
-    //     console.log(Game.gameNumber)
-    // };
 
     const showBoard = board => {
         document.getElementById("gameBoard").innerHTML = createBoard(board)
@@ -83,10 +58,12 @@ const GameBoard = (() =>{
                 if(turn === "player1" && document.getElementById([i]).innerHTML.trim() === ""){
                     document.getElementById([i]).innerHTML = player1.getSymbol
                     document.getElementById([i]).classList.add(`${player1.getSymbol}`)
+                    document.getElementById([i]).setAttribute("disabled", '')
                     GameBoard.board[i] = player1.getSymbol
                 } else if (turn === "player2" && document.getElementById([i]).innerHTML.trim() === ""){
                     document.getElementById([i]).innerHTML = player2.getSymbol
                     document.getElementById([i]).classList.add(`${player2.getSymbol}`)
+                    document.getElementById([i]).setAttribute("disabled", '')
                     GameBoard.board[i] = player2.getSymbol
                 }
                 winCheck()
@@ -123,6 +100,7 @@ const GameBoard = (() =>{
             for(let i = 0; i<=8; i++){
                 document.getElementById([i]).setAttribute("disabled", '')
             }
+            document.getElementById("winNotification").style.display = "block";
             if(turn == "player1"){
                 document.getElementById("winNotification").innerHTML = `${player1.getSymbol} won!`
             } else {
@@ -132,6 +110,7 @@ const GameBoard = (() =>{
             for(let i = 0; i<=8; i++){
                 document.getElementById([i]).setAttribute("disabled", '')
             }
+            document.getElementById("winNotification").style.display = "block";
             document.getElementById("winNotification").innerHTML = `It's a tie!`
         }
     }
@@ -142,8 +121,12 @@ const GameBoard = (() =>{
             board[i] = i
         }
         console.log(board)
+        GameBoard.turn = "player1"
+        document.getElementById("player1Name").classList.remove("activeBorder")
+        document.getElementById("player2Name").classList.remove("activeBorder")
         GameBoard.showBoard(board)
         document.getElementById("winNotification").innerHTML = ""
+        document.getElementById("winNotification").style.display = "none";
     }
 
     return {board, createBoard, showBoard, createPlayers, resetGame}
@@ -175,6 +158,7 @@ function closeForm2() {
         document.getElementById("player1Name").innerHTML = "Player 1: "
         document.getElementById("player2Name").innerHTML = "Player 2: "
         document.getElementById("myForm2").style.display = "none";
+        
         openForm()
         console.log(Game.gameNumber)
     }
