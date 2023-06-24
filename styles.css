@@ -8,6 +8,7 @@ body {
     margin: 0;
 }
 
+/*The Top of the Screen*/
 h1{
     font-size: 4em;
     margin-bottom: 5px;
@@ -26,18 +27,33 @@ h2 {
     font-size: 2em;
 }
 
-#player1Name, #player2Name {
-    margin: 50px;
-    padding: 10px;
-    flex-shrink: 0
+/*The Gameboard*/
+.gameContainer{
+    height: 100%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+}
+  
+#gameBoard {
+    width: 600px;
+    height: 600px;
+    background-color: rgb(120, 0, 0);
+    border: rgb(120, 0, 0) solid;
+    border-width: 7px 5px;
+    display:flex;  
+    justify-content: center;
+    flex-wrap:wrap;
+}
+  
+button {
+    flex-basis:33%;
+    height: 200px;
+    background-color: rgb(255,255,255);
+    border: rgb(120, 0, 0) solid 3px;
 }
 
-.activeBorder {
-    border-radius: 50px;
-    outline-offset: -5px;
-    outline: 5px rgb(193, 18, 31) solid
-}
-
+/*The two different marks for the gameboard*/
 .X {
     border: rgb(253, 240, 213) solid 3px;
     background-color: rgb(0, 48, 73);
@@ -52,34 +68,8 @@ h2 {
     font-size: 100px;
 }
 
-.gameContainer{
-    height: 100%; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center;
-    
-  }
-  
-  
-  #gameBoard {
-    width: 600px;
-    height: 600px;
-    background-color: rgb(120, 0, 0);
-    border: rgb(120, 0, 0) solid;
-    border-width: 7px 5px;
-    display:flex;  
-    justify-content: center;
-    flex-wrap:wrap;
-  }
-  
-  button {
-    flex-basis:33%;
-    height: 200px;
-    background-color: rgb(255,255,255);
-    border: rgb(120, 0, 0) solid 3px;
-  }
-
-  .open-button {
+/*Popup Form*/
+.open-button {
     font-family: 'Eczar', serif;
     background-color: rgb(193,18,31);
     color: rgb(255,255,255);
@@ -105,7 +95,6 @@ h2 {
     flex: 1
 }
 
-/*--Popup Form--*/
 .form-popup {
     display: none;  
     position: fixed;
@@ -140,7 +129,7 @@ label {
     outline: none;
 }
 
-.btnsubmit { /* Set a style for the submit/login button */
+.btnsubmit {
     font-family: 'Eczar', serif;
     background-color: rgb(193, 18, 31);
     color: rgb(255, 255, 255);
@@ -163,13 +152,14 @@ label {
     padding: 0 40px;
     text-align: center;
     touch-action: manipulation;  
+    transition: background-color 0.5s ease-out;
 }
 
-.form-container #btnsubmit:hover, .open-button:hover { /* Add some hover effects to buttons */
+.btnsubmit:hover, .open-button:hover { /* Makes buttons turn darker red */
     background-color: rgb(120, 0, 0);
 }
 
-
+/*The Bottom of the Screen*/
 footer{
     display: flex; 
     align-items: center; 
@@ -180,28 +170,42 @@ footer > * {
     flex: 1
 }
 
-  @media all and (max-width: 650px) {
-    #gameBoard{
-     width: 300px;
-     height: 300px;
-   }
-
-  .open-button{
-    max-width: 70%;
-  }
-
-  .X, .O {
-    font-size: 75px;
-  }
-
-  button {
-    height: 100px
-  }
-
-  #player1Name, #player2Name {
-    margin: 20px;
-    padding: 8px;
-    flex: 0
+#player1Name, #player2Name {
+    margin: 50px;
+    padding: 10px;
+    flex-shrink: 0
 }
-  }
+
+/*Adds decoration to let player know whose turn it is*/
+.activeBorder {
+    border-radius: 50px;
+    outline-offset: -5px;
+    outline: 5px rgb(193, 18, 31) solid;
+    background-color: rgb(255, 255, 255);
+}
+
+@media all and (max-width: 650px) {
+    #gameBoard{
+        width: 300px;
+        height: 300px;
+    }
+
+    .open-button{
+        max-width: 70%;
+    }
+
+    .X, .O {
+        font-size: 75px;
+    }
+
+    button {
+        height: 100px
+    }
+
+    #player1Name, #player2Name {
+        margin: 20px;
+        padding: 8px;
+        flex: 0
+    }
+}
   
