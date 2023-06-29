@@ -53,15 +53,13 @@ const GameBoard = (() =>{
         document.getElementById("name").value = ""
         document.getElementById("symbol").value = "X"
         document.getElementById("name2").value = ""
+        GameBoard.showBoard(board)  
         Game.gameNumber++
     };
 
     const showBoard = board => {
-        console.log("Im running!")
         document.getElementById("gameBoard").innerHTML = createBoard(board)
-        setTimeout(() => {
 
-            console.log("I am trying to run, but later!")
         //adds an event listener to each space that listens for a click and then 
         //adds the appropriate symbol, checks to see if it results in a win/tie condition, 
         //and then changes the turn if there isn't one (split in two paths for computer playing situation)
@@ -88,7 +86,6 @@ const GameBoard = (() =>{
                 })
             }
         }
-    }, 1000)
     }
 
 
@@ -199,7 +196,6 @@ const GameBoard = (() =>{
         turn = "player1"
         document.getElementById("player1Name").classList.add("activeBorder")
         document.getElementById("player2Name").classList.remove("activeBorder")
-        GameBoard.showBoard(board)
         document.getElementById("winNotification").innerHTML = ""
         document.getElementById("winNotification").style.display = "none";
     }
@@ -233,13 +229,11 @@ function closeForm() {
 function closeForm2() {
     if(document.getElementById("newNames").value == "Yes"){
         GameBoard.resetGame()
+        GameBoard.showBoard(board)
         document.getElementById("myForm2").style.display = "none";
     } else {
         GameBoard.resetGame()
         Game.gameNumber = 0
-        console.log(GameBoard.opponent)
-        GameBoard.opponent = ""
-        console.log(GameBoard.opponent)
         document.getElementById("player1Name").innerHTML = ""
         document.getElementById("player2Name").innerHTML = ""
         document.getElementById("myForm2").style.display = "none";
