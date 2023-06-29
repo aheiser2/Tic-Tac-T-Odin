@@ -34,11 +34,14 @@
                 <option value="X">X</option>
                 <option value="O">O</option>
             </select><br><br>
-            <label for="name2">Player 2 Name:</label>
+            <label for="name2">Player 2 Name:</label><br>
+            <input type="checkbox" id="compOpponent" name="compOpponent" value="Computer" onchange="GameBoard.disableToggle()">
+            <label for="compOpponent">No player 2? Play the computer!</label><br>
+            <!-- <label for="name2">Player 2 Name:</label> -->
             <input type="text" id="name2" name="name2"><br><br>
-            <p>No player 2? Play the computer!</p>
+            <!-- <p>No player 2? Play the computer!</p>
             <input type="checkbox" id="compOpponent" name="compOpponent" value="Computer">
-            <label for="compOpponent">Computers Rule</label><br>
+            <label for="compOpponent">Computers Rule</label><br> -->
 
             <input class="btnsubmit" type="button" value="SUBMIT" onclick="closeForm()">
         </form>

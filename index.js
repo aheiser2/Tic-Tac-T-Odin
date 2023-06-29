@@ -22,12 +22,23 @@ const GameBoard = (() =>{
     let turn = "player1"
     let compTurn = 0  //tracker for compWinCheck to figure out who won
     let compGameDone = 'no' //track for compWinCheck to see if game is over
+    let checkbox = document.getElementById('compOpponent');
+    checkbox.checked = false
 
     const createBoard = board => { 
         return board.map((space, index) => `  
         <button class="space" id="${index}" >
         </button>`)
         .join('');
+    }
+
+    const disableToggle = () => {
+        let input = document.getElementById('name2');
+        if (checkbox.checked) {
+           input.disabled = true;
+        } else {
+            input.disabled = false;
+        }
     }
 
     const createPlayers = () =>{ // creates two players, either real or one real and a computer
@@ -44,6 +55,10 @@ const GameBoard = (() =>{
         if (document.getElementById("compOpponent").checked == true ){
             document.getElementById("name2").value = "Computer"
             GameBoard.opponent = "computer"
+            const disable = () => {
+                document.getElementById("player2Name").disabled = true
+            }
+            disable()
         } else if (document.getElementById("compOpponent").checked == false ){
             GameBoard.opponent = "human"
         }
@@ -64,7 +79,6 @@ const GameBoard = (() =>{
         //adds the appropriate symbol, checks to see if it results in a win/tie condition, 
         //and then changes the turn if there isn't one (split in two paths for computer playing situation)
         if(GameBoard.opponent == "human" ){
-        // if(document.getElementById("compOpponent").checked == false ){
             for(let i = 0; i<=8; i++){
                 document.getElementById([i]).addEventListener("click", function() {
                     runGame(i)
@@ -72,7 +86,6 @@ const GameBoard = (() =>{
                     changeTurn()
                 })
             }
-        // } else if(document.getElementById("compOpponent").checked == true ){
         } else if(GameBoard.opponent == "computer"){
             for(let i = 0; i<=8; i++){
                 document.getElementById([i]).addEventListener("click", function() {
@@ -82,7 +95,9 @@ const GameBoard = (() =>{
                     computerGameSecond(i)
                     let check = setTimeout(winCheck, 1000)
                     let turn = setTimeout(changeTurn, 1200)
-
+                    if(compGameDone == "yes"){ //stops turn tracker from changing
+                        clearTimeout(turn)
+                }
                 })
             }
         }
@@ -200,7 +215,7 @@ const GameBoard = (() =>{
         document.getElementById("winNotification").style.display = "none";
     }
 
-    return {board, opponent, createBoard, showBoard, createPlayers, resetGame}
+    return {board, opponent, disableToggle, createBoard, showBoard, createPlayers, resetGame}
 })();
 
 //creates the initial board
@@ -211,6 +226,7 @@ GameBoard.showBoard(board)
 //opens the form for players to enter their names and choose if playing against the computer,
 //or opens a second form if one game has already been played
 function openForm() {
+    document.getElementById("player1Name").classList.remove("activeBorder")
     if (Game.gameNumber == 0){
         document.getElementById("myForm").style.display = "block";
     } else {
